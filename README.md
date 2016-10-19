@@ -1,4 +1,4 @@
-# tinyservlet
+# tinyservlet simplest java servlet like system written from scratch using Java
 
 run the follwing commands from your coomamnd prompt:
 
