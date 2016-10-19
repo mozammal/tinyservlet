@@ -1,4 +1,4 @@
-package org.tinywebserver.client;
+package org.tinywebserver.session;
 
 import java.util.HashMap;
 

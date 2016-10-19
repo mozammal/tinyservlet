@@ -1,7 +1,4 @@
-package org.tinywebserver.client;
-
-import java.io.PrintWriter;
-import java.util.HashMap;
+package org.tinywebserver.servlet;
 
 /**
  * Created by user on 10/17/2016.

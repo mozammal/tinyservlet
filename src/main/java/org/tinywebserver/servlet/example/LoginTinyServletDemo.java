@@ -1,7 +1,9 @@
-package org.tinywebserver.client;
+package org.tinywebserver.servlet.example;
 
-import java.io.PrintWriter;
-import java.util.Date;
+import org.tinywebserver.servlet.TinyServlet;
+import org.tinywebserver.servlet.TinyServletRequest;
+import org.tinywebserver.servlet.TinyServletResponse;
+import org.tinywebserver.session.TinyHttpSession;
 
 /**
  * Created by user on 10/18/2016.

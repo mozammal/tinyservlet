@@ -1,6 +1,8 @@
-package org.tinywebserver.client;
+package org.tinywebserver.file.handler;
 
 import org.apache.log4j.Logger;
+import org.tinywebserver.config.TinyServletConfig;
+import org.tinywebserver.servlet.HttpTinyServletRequest;
 import org.tinywebserver.util.TinyWebServerUtility;
 
 import java.io.*;

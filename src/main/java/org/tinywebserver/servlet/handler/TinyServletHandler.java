@@ -1,4 +1,8 @@
-package org.tinywebserver.client;
+package org.tinywebserver.servlet.handler;
+
+import org.tinywebserver.servlet.HttpTinyServletRequest;
+import org.tinywebserver.servlet.HttpTinyServletResponse;
+import org.tinywebserver.servlet.TinyServlet;
 
 import java.io.ByteArrayOutputStream;
 import java.io.PrintWriter;

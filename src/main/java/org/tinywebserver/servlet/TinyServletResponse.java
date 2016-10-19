@@ -1,4 +1,4 @@
-package org.tinywebserver.client;
+package org.tinywebserver.servlet;
 
 import java.io.PrintWriter;
 import java.util.HashMap;

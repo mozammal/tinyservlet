@@ -1,4 +1,6 @@
-package org.tinywebserver.client;
+package org.tinywebserver.servlet;
+
+import org.tinywebserver.session.TinyHttpSession;
 
 import java.io.IOException;
 import java.util.HashMap;

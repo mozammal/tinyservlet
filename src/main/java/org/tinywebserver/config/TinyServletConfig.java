@@ -1,4 +1,8 @@
-package org.tinywebserver.client;
+package org.tinywebserver.config;
+
+import org.tinywebserver.servlet.example.LoginSuccessTinyServletDemo;
+import org.tinywebserver.servlet.example.LoginTinyServletDemo;
+import org.tinywebserver.servlet.TinyServlet;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -6,6 +10,9 @@ import java.util.Map;
 import java.util.Properties;
 
 public class TinyServletConfig {
+    public static final String LOGIN_SERVLET_NAME = "/login";
+    public static final String HOME_SERVLET_NAME = "/home";
+    public static final String APPLICATION_PROPERTIES = "application.properties";
     private Class cls;
 
     private static HashMap<String, TinyServletConfig> tinyServletConfigs;
@@ -18,11 +25,11 @@ public class TinyServletConfig {
     public static synchronized Map<String, TinyServletConfig> getTinyServletConfigInstance() throws IOException {
         if (tinyServletConfigs == null) {
             tinyServletConfigs = new HashMap<String, TinyServletConfig>();
-            tinyServletConfigs.put("/login", new TinyServletConfig(LoginTinyServletDemo.class));
-            tinyServletConfigs.put("/home", new TinyServletConfig(LoginSuccessTinyServletDemo.class));
+            tinyServletConfigs.put(LOGIN_SERVLET_NAME, new TinyServletConfig(LoginTinyServletDemo.class));
+            tinyServletConfigs.put(HOME_SERVLET_NAME, new TinyServletConfig(LoginSuccessTinyServletDemo.class));
             properties = new Properties();
             ClassLoader classloader = Thread.currentThread().getContextClassLoader();
-            properties.load(classloader.getResourceAsStream("application.properties"));
+            properties.load(classloader.getResourceAsStream(APPLICATION_PROPERTIES));
         }
         return tinyServletConfigs;
     }

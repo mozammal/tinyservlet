@@ -1,14 +1,13 @@
 package org.tinywebserver.controllers;
 
 import org.apache.log4j.Logger;
-import org.tinywebserver.client.TinyServletConfig;
-import org.tinywebserver.client.TinyWebServerClientHandler;
+import org.tinywebserver.config.TinyServletConfig;
+import org.tinywebserver.processor.HttpProcessor;
 import org.tinywebserver.util.TinyWebServletSessionSentinel;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
-import java.util.Properties;
 
 /**
  * Created by user on 10/16/2016.
@@ -32,7 +31,7 @@ public class TinyWebServer {
         new TinyWebServletSessionSentinel().start();
         while (true) {
             Socket clientScoket = serverSocket.accept();
-            new Thread(new TinyWebServerClientHandler(clientScoket)).start();
+            new Thread(new HttpProcessor(clientScoket)).start();
 
         }
     }

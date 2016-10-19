@@ -1,6 +1,8 @@
-package org.tinywebserver.client;
+package org.tinywebserver.servlet;
 
 import org.apache.log4j.Logger;
+import org.tinywebserver.config.TinyServletConfig;
+import org.tinywebserver.session.TinyHttpSession;
 import sun.reflect.generics.reflectiveObjects.NotImplementedException;
 
 import java.io.*;
@@ -13,8 +15,13 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 
 public class HttpTinyServletRequest implements TinyServletRequest {
+    public static final String METHOD_POST = "POST";
     private final static Logger log = Logger.getLogger(HttpTinyServletRequest.class);
     public static final String COOKIE = "cookie";
+    public static final String METHOD_GET = "GET";
+    public static final String UTF_8 = "UTF-8";
+    public static final String CONTENT_LENGTH = "content-length";
+    public static final String TINYWEBSERVER_SESSION_COOKIE = "tinywebserver.session.cookie";
 
 
     private BufferedReader inputScanner;
@@ -49,12 +56,13 @@ public class HttpTinyServletRequest implements TinyServletRequest {
 
         getCookies();
 
-        if (getMethod().equals("POST")) {
+        if (getMethod().equals(METHOD_POST)) {
             parseBody();
         }
     }
 
     private void parseBody() throws IOException {
+
 
         int contentLength = getContentLength();
         StringBuffer body = new StringBuffer();
@@ -70,10 +78,10 @@ public class HttpTinyServletRequest implements TinyServletRequest {
     protected void parseMethod(String requestLine)  {
 
         String method = requestLine.split(" ")[0];
-        if (method.equals("GET"))
-            this.method = "GET";
-        else if (method.equals("POST"))
-            this.method = "POST";
+        if (method.equals(METHOD_GET))
+            this.method = METHOD_GET;
+        else if (method.equals(METHOD_POST))
+            this.method = METHOD_POST;
         else
             new NotImplementedException();
     }
@@ -87,7 +95,7 @@ public class HttpTinyServletRequest implements TinyServletRequest {
             queryString = path.substring(queryIndex + 1);
             path = path.substring(0, queryIndex);
         }
-        path = URLDecoder.decode(path, "UTF-8");
+        path = URLDecoder.decode(path, UTF_8);
         if (queryString != null)
             parseQueryString(queryString);
     }
@@ -131,8 +139,8 @@ public class HttpTinyServletRequest implements TinyServletRequest {
         for (String qToekn : qTokens) {
             String[] ptokens = qToekn.split("=");
             if (ptokens.length == 2) {
-                String parameterName = URLDecoder.decode(ptokens[0], "utf-8");
-                String parameterValue = URLDecoder.decode(ptokens[1], "utf-8");
+                String parameterName = URLDecoder.decode(ptokens[0], UTF_8);
+                String parameterValue = URLDecoder.decode(ptokens[1], UTF_8);
                 parameters.put(parameterName, parameterValue);
             }
         }
@@ -140,7 +148,7 @@ public class HttpTinyServletRequest implements TinyServletRequest {
 
     public TinyHttpSession getSession() {
 
-        String sessionId = TinyServletConfig.getProperty("tinywebserver.session.cookie");
+        String sessionId = TinyServletConfig.getProperty(TINYWEBSERVER_SESSION_COOKIE);
         String sessionCookie = getRequestCookie(sessionId);
 
         if (sessionCookie == null) {
@@ -165,7 +173,7 @@ public class HttpTinyServletRequest implements TinyServletRequest {
     }
 
     public int getContentLength() {
-        return Integer.parseInt(getHeader("content-length"));
+        return Integer.parseInt(getHeader(CONTENT_LENGTH));
     }
 
     public Map<String, String> getHeaders() {

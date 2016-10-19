@@ -1,31 +1,26 @@
-package org.tinywebserver.client;
+package org.tinywebserver.processor;
 
 import org.apache.log4j.Logger;
+import org.tinywebserver.config.TinyServletConfig;
 import org.tinywebserver.controllers.TinyWebServer;
+import org.tinywebserver.file.handler.TinyWebServerFileHandler;
+import org.tinywebserver.servlet.HttpTinyServletRequest;
+import org.tinywebserver.servlet.HttpTinyServletResponse;
+import org.tinywebserver.servlet.TinyServlet;
+import org.tinywebserver.servlet.handler.TinyServletHandler;
 
 import java.io.*;
 import java.net.Socket;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Map;
 
 /**
  * Created by user on 10/16/2016.
  */
-public class TinyWebServerClientHandler extends BaseClientProcessor implements Runnable {
+public class HttpProcessor extends BaseHttprocessor implements Runnable {
 
     private final static Logger log = Logger.getLogger(TinyWebServer.class);
 
-    public TinyWebServerClientHandler(Socket socket) {
+    public HttpProcessor(Socket socket) {
         super(socket);
-    }
-
-    public void parseRequest() {
-
-    }
-
-    public void prepareResponse() {
-
     }
 
     public void run() {
