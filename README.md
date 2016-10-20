@@ -1,4 +1,4 @@
-# tinyservlet simplest java servlet like system written from scratch using Java
+# tinyservlet simplest java servlet like system written from scratch using Java with cookie, sessoin, session timeout support
 
 run the follwing commands from your coomamnd prompt:
 
@@ -12,4 +12,4 @@ A garbage collector for session is included which runs in every t seconds and ca
 
 TODO:
 
-tiny jsp support with class loader. 
+tiny jsp support with custom class loading. 
