@@ -1,5 +1,4 @@
-# tinyservlet: simplest java servlet like system written in plain Java with support for cookie, sessoin,
-session timeout support and jsp scriptlet
+# tinyservlet: simplest java servlet like system written in plain Java with support for cookie, sessoin, session timeout support and jsp scriptlet
 
 run the following command from your command prompt:
 
