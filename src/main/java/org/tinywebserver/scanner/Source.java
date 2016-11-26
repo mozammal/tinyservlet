@@ -3,9 +3,7 @@ package org.tinywebserver.scanner;
 import java.io.BufferedReader;
 import java.io.IOException;
 
-/**
- * Created by user on 11/25/2016.
- */
+
 public class Source {
     private BufferedReader source;
 

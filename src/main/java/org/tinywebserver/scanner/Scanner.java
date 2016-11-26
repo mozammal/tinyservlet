@@ -4,9 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-/**
- * Created by user on 11/24/2016.
- */
+
 public abstract class Scanner {
 
     private Token currentToken;

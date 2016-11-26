@@ -2,9 +2,6 @@ package org.tinywebserver.session;
 
 import java.util.HashMap;
 
-/**
- * Created by user on 10/17/2016.
- */
 public class TinyHttpSession {
 
     private HashMap<String, Object> sessions = new HashMap<String, Object>();

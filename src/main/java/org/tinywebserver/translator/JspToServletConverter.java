@@ -13,9 +13,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.regex.Pattern;
 
-/**
- * Created by user on 11/25/2016.
- */
+
 public class JspToServletConverter {
 
     private static final String PACKAGE_NAME_TRANSLATED_SERVLET = "org.tinywebserver.servlet.translated.";

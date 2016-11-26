@@ -7,9 +7,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.net.URL;
 
-/**
- * Created by user on 11/25/2016.
- */
+
 public class JspToServletProcessor {
 
     private static JspToServletProcessor jspToServletProcessor = new JspToServletProcessor();

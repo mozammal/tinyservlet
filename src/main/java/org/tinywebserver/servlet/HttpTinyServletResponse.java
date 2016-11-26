@@ -3,9 +3,7 @@ package org.tinywebserver.servlet;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-/**
- * Created by user on 10/17/2016.
- */
+
 public class HttpTinyServletResponse implements TinyServletResponse {
 
     private PrintWriter outputWriter;

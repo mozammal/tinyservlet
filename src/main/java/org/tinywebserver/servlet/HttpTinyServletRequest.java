@@ -10,9 +10,6 @@ import java.net.URLDecoder;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by user on 10/17/2016.
- */
 
 public class HttpTinyServletRequest implements TinyServletRequest {
     public static final String METHOD_POST = "POST";

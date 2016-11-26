@@ -8,9 +8,7 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by user on 10/17/2016.
- */
+
 public interface TinyServletRequest {
     ConcurrentHashMap<String, TinyHttpSession> sessionManager = new ConcurrentHashMap<String, TinyHttpSession>();
 

@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
-/**
- * Created by user on 10/18/2016.
- */
+
 public class TinyServletHandler {
 
 

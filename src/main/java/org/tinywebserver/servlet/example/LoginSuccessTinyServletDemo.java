@@ -9,9 +9,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
-/**
- * Created by user on 10/18/2016.
- */
+
 public class LoginSuccessTinyServletDemo extends TinyServlet {
 
     public void doRequest(TinyServletRequest request, TinyServletResponse response) throws IOException {
