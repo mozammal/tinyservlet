@@ -16,9 +16,7 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.List;
 
-/**
- * Created by user on 11/25/2016.
- */
+
 public class JSPTranslatorRunner {
 
     private final static Logger LOG = Logger.getLogger(JSPTranslatorRunner.class);
