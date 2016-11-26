@@ -20,7 +20,7 @@ public interface TinyServletRequest {
 
     Map<String, String> getCookies() throws IOException;
 
-    TinyHttpSession getSession();
+    TinyHttpSession getSession() throws IOException;
 
     Map<String, String> getHeaders();
 

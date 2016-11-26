@@ -5,6 +5,7 @@ import org.tinywebserver.config.TinyServletConfig;
 import org.tinywebserver.servlet.HttpTinyServletRequest;
 import org.tinywebserver.session.TinyHttpSession;
 
+import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -24,7 +25,12 @@ public class TinyWebServletSessionSentinel extends Thread {
             }
             log.info("garbage collector for session is running....");
             long currentTime = System.currentTimeMillis();
-            String sessionTimeoutString = TinyServletConfig.getProperty(TINYWEBSERVER_SESSION_TIMEOUT);
+            String sessionTimeoutString = null;
+            try {
+                sessionTimeoutString = TinyServletConfig.getTinyServletConfigInstance().getProperty(TINYWEBSERVER_SESSION_TIMEOUT);
+            } catch (IOException e) {
+
+            }
             int sessionTimeOut = Integer.parseInt(sessionTimeoutString);
 
             ConcurrentHashMap<String, TinyHttpSession> sessionManager = HttpTinyServletRequest.getSessionManager();

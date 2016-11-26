@@ -5,6 +5,7 @@ import org.tinywebserver.servlet.HttpTinyServletResponse;
 import org.tinywebserver.servlet.TinyServlet;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 
@@ -15,7 +16,7 @@ public class TinyServletHandler {
 
 
     public void processTinyServlet(TinyServlet tinyServlet, HttpTinyServletRequest httpTinyServletRequest,
-                                   HttpTinyServletResponse httpTinyServletResponse) {
+                                   HttpTinyServletResponse httpTinyServletResponse) throws IOException {
 
         ByteArrayOutputStream byteArray = new ByteArrayOutputStream();
         PrintWriter out = new PrintWriter(byteArray);

@@ -5,6 +5,7 @@ import org.tinywebserver.servlet.TinyServletRequest;
 import org.tinywebserver.servlet.TinyServletResponse;
 import org.tinywebserver.session.TinyHttpSession;
 
+import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.Date;
 
@@ -13,7 +14,7 @@ import java.util.Date;
  */
 public class LoginSuccessTinyServletDemo extends TinyServlet {
 
-    public void doRequest(TinyServletRequest request, TinyServletResponse response) {
+    public void doRequest(TinyServletRequest request, TinyServletResponse response) throws IOException {
 
         TinyHttpSession session = request.getSession();
 

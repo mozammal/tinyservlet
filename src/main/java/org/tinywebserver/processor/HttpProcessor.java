@@ -37,7 +37,7 @@ public class HttpProcessor extends BaseHttprocessor implements Runnable {
             HttpTinyServletRequest httpTinyServletRequest = new HttpTinyServletRequest(inputStream);
             httpTinyServletRequest.readRequest();
             HttpTinyServletResponse httpTinyServletResponse = new HttpTinyServletResponse(printWriter);
-            TinyServlet matchingTinyServlet = TinyServletConfig.getMatchingTinyServlet(httpTinyServletRequest.getPath());
+            TinyServlet matchingTinyServlet = TinyServletConfig.getTinyServletConfigInstance().getMatchingTinyServlet(httpTinyServletRequest.getPath());
 
             if (matchingTinyServlet != null) {
                 TinyServletHandler tinyServletHandler = new TinyServletHandler();

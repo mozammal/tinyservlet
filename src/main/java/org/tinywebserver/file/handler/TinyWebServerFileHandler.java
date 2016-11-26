@@ -18,7 +18,7 @@ public class TinyWebServerFileHandler {
     public void processFile(HttpTinyServletRequest httpTinyServletRequest, OutputStream outputStream) throws IOException, URISyntaxException {
 
         PrintWriter outputWriter = new PrintWriter(new OutputStreamWriter(outputStream));
-        String baseDirectory = TinyServletConfig.getProperty("tinywebserver.root.doc.directory");
+        String baseDirectory = TinyServletConfig.getTinyServletConfigInstance().getProperty("tinywebserver.root.doc.directory");
 
         log.info("base path " + baseDirectory);
         File dir = new File(baseDirectory);
@@ -33,7 +33,7 @@ public class TinyWebServerFileHandler {
         } else {
             outputWriter.println("HTTP/1.0 200 OK");
             String ctype = guessContentType(file.getName());
-            log.info("resource: "+file.getName());
+            log.info("resource: " + file.getName());
             outputWriter.println("Content-Type: " + ctype);
             outputWriter.println();
             outputWriter.flush();

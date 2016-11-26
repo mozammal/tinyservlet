@@ -146,9 +146,9 @@ public class HttpTinyServletRequest implements TinyServletRequest {
         }
     }
 
-    public TinyHttpSession getSession() {
+    public TinyHttpSession getSession() throws IOException {
 
-        String sessionId = TinyServletConfig.getProperty(TINYWEBSERVER_SESSION_COOKIE);
+        String sessionId = TinyServletConfig.getTinyServletConfigInstance().getProperty(TINYWEBSERVER_SESSION_COOKIE);
         String sessionCookie = getRequestCookie(sessionId);
 
         if (sessionCookie == null) {

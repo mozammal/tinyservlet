@@ -5,12 +5,14 @@ import org.tinywebserver.servlet.TinyServletRequest;
 import org.tinywebserver.servlet.TinyServletResponse;
 import org.tinywebserver.session.TinyHttpSession;
 
+import java.io.IOException;
+
 /**
  * Created by user on 10/18/2016.
  */
 public class LoginTinyServletDemo extends TinyServlet {
 
-    public void doRequest(TinyServletRequest request, TinyServletResponse response) {
+    public void doRequest(TinyServletRequest request, TinyServletResponse response) throws IOException {
 
         TinyHttpSession session = request.getSession();
         if (session.getAttribute("username") != null && session.getAttribute("password") != null) {
