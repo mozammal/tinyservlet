@@ -9,15 +9,15 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-/**
- * Created by user on 10/19/2016.
- */
+
 public class TinyWebServletSessionSentinel extends Thread {
 
     private final static Logger log = Logger.getLogger(TinyWebServletSessionSentinel.class);
+
     public static final String TINYWEBSERVER_SESSION_TIMEOUT = "tinywebserver.session.timeout";
 
     public void run() {
+
         for (; ; ) {
             try {
                 Thread.sleep(180000L);

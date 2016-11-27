@@ -34,16 +34,19 @@ public class Source {
     }
 
     public char nextCharacter() throws IOException {
+
         curPosition++;
         return currentCharacter();
     }
 
     private void readNewLine() throws IOException {
+
         curPosition = -1;
         curLine = source.readLine();
     }
 
     public char peekNextCharacter() throws IOException {
+
         currentCharacter();
         if (curLine == null)
             return ' ';
@@ -52,6 +55,7 @@ public class Source {
     }
 
     public char peekKthCharacter(int k) throws IOException {
+
         currentCharacter();
         if (curLine == null)
             return ' ';
@@ -60,14 +64,17 @@ public class Source {
     }
 
     public String getCurLine() {
+
         return curLine;
     }
 
     public boolean hasNextCharacter() {
+
         return curLine != null;
     }
 
     public void close() {
+
         if (source != null) {
             try {
                 source.close();

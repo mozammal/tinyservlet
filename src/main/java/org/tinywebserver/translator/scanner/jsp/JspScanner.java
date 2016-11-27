@@ -58,6 +58,7 @@ public class JspScanner extends Scanner {
     }
 
     private Token JspImportToken() throws IOException {
+
         StringBuffer sb = new StringBuffer();
         nextCharcter();
         nextCharcter();
@@ -81,6 +82,7 @@ public class JspScanner extends Scanner {
     }
 
     private char consumeEqualSymbol(char nexCharacter) throws IOException {
+
         while (nexCharacter != EQUAL && hasNextCharacter())
             nexCharacter = nextCharcter();
         if (hasNextCharacter() && nexCharacter == EQUAL)
@@ -107,6 +109,7 @@ public class JspScanner extends Scanner {
     }
 
     private Token JspHtmlToken() throws IOException {
+
         StringBuffer sb = new StringBuffer();
         char nexCharacter = currentCharacter();
         while (!(nexCharacter == LESS_THAN && peekNextCharacter() == PERCENT) && hasNextCharacter()) {
@@ -118,6 +121,7 @@ public class JspScanner extends Scanner {
     }
 
     private Token JspDeclarationToken() throws IOException {
+
         StringBuffer sb = new StringBuffer();
         nextCharcter();
         nextCharcter();
@@ -128,6 +132,7 @@ public class JspScanner extends Scanner {
     }
 
     private char fetchToken(StringBuffer sb, char nexCharacter) throws IOException {
+
         while (!(nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN) && hasNextCharacter()) {
             if (nexCharacter != NEW_LINE)
                 sb.append(nexCharacter);
@@ -158,6 +163,7 @@ public class JspScanner extends Scanner {
     }
 
     private void consumeJspTag(char nexCharacter) throws IOException {
+
         if (nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN) {
             nextCharcter();
             nextCharcter();

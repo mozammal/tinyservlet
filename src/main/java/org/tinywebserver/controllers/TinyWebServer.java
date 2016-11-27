@@ -11,9 +11,7 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.net.URISyntaxException;
 
-/**
- * Created by user on 10/16/2016.
- */
+
 public class TinyWebServer {
 
     private final static Logger LOG = Logger.getLogger(TinyWebServer.class);

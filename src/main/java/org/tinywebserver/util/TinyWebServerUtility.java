@@ -1,11 +1,10 @@
 package org.tinywebserver.util;
 
-/**
- * Created by user on 10/19/2016.
- */
+
 public class TinyWebServerUtility {
 
     public static String guessContentType(String fileName) {
+
         if (fileName.endsWith(".htm") || fileName.endsWith(".html"))
             return "text/html";
         else if (fileName.endsWith(".png"))
@@ -28,6 +27,7 @@ public class TinyWebServerUtility {
         return null;
     }
     public static String capitalizeFirstLetter(String original) {
+
         if (original == null || original.length() == 0) {
             return original;
         }

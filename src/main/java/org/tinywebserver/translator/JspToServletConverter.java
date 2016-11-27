@@ -45,46 +45,57 @@ public class JspToServletConverter {
     private List<Token> tokens;
 
     public JspToServletConverter(boolean updateServletConfiguration) throws IOException {
+
         setUpdateServletConfiguration(updateServletConfiguration);
     }
 
     public void setUpdateServletConfiguration(boolean updateServletConfiguration) {
+
         this.updateServletConfiguration = updateServletConfiguration;
     }
 
     public boolean isUpdateServletConfiguration() {
+
         return updateServletConfiguration;
     }
 
     public void setTokens(List<Token> tokens) {
+
         this.tokens = tokens;
     }
 
     public List<Token> getTokens() {
+
         return tokens;
     }
 
     public void setJavaFileName(String javaFileName) {
+
         this.javaFileName = javaFileName;
     }
 
     public String getJavaFileName() {
+
         return javaFileName;
     }
 
     public void setDestinationDirectory(String destinationDirectory) {
+
         this.destinationDirectory = destinationDirectory;
     }
 
     public String getDestinationDirectory() {
+
         return destinationDirectory;
     }
 
     public void setWriter(PrintWriter writer) {
+
         this.writer = writer;
     }
 
     public PrintWriter getWriter() {
+
         return writer;
     }
 
@@ -104,6 +115,7 @@ public class JspToServletConverter {
     }
 
     private void updateServletConfiguration(File file) throws ClassNotFoundException, IOException {
+
         setJavaFileName(TinyWebServerUtility.capitalizeFirstLetter(file.getName().replace(JSP_FILE_EXTENSION, JAVA_FILE_EXTENSION)));
         String resourceLocation = "/"+getResourceName(file).replaceAll("\\\\","/");
         TinyServletConfig tinyServletConfigInstance = TinyServletConfig.getTinyServletConfigInstance();
@@ -144,7 +156,6 @@ public class JspToServletConverter {
 
     private String getDestinationDirectoryServlet() {
 
-        File currentDirectory = new File(new File(".").getAbsolutePath());
         String rootDirectory = Paths.get(".").toAbsolutePath().normalize().toString();
         return new File(rootDirectory, DESTINATION_DIRECTORY_CONVERTED_SERVLET).toString();
     }

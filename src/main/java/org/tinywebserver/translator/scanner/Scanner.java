@@ -25,30 +25,37 @@ public abstract class Scanner {
     public abstract List<Token> fetchToken() throws IOException;
 
     public char currentCharacter() throws IOException {
+
         return source.currentCharacter();
     }
 
     public char peekNextCharacter() throws IOException {
+
         return source.peekNextCharacter();
     }
 
     public char nextCharcter() throws IOException {
+
         return source.nextCharacter();
     }
 
     public char peekKthCharacter(int k) throws IOException {
-       return source.peekKthCharacter(k);
+
+        return source.peekKthCharacter(k);
     }
 
     public String getCurLine() {
+
         return source.getCurLine();
     }
 
     public boolean hasNextCharacter() {
+
         return source.hasNextCharacter();
     }
 
     public void close() {
+
         source.close();
     }
 
