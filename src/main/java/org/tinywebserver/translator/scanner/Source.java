@@ -1,4 +1,4 @@
-package org.tinywebserver.scanner;
+package org.tinywebserver.translator.scanner;
 
 import java.io.BufferedReader;
 import java.io.IOException;

@@ -1,11 +1,11 @@
 package org.tinywebserver.translator;
 
 import org.tinywebserver.config.TinyServletConfig;
-import org.tinywebserver.scanner.Scanner;
-import org.tinywebserver.scanner.Source;
-import org.tinywebserver.scanner.Token;
-import org.tinywebserver.scanner.jsp.JspScanner;
-import org.tinywebserver.scanner.jsp.JspTokenType;
+import org.tinywebserver.translator.scanner.Scanner;
+import org.tinywebserver.translator.scanner.Source;
+import org.tinywebserver.translator.scanner.Token;
+import org.tinywebserver.translator.scanner.jsp.JspScanner;
+import org.tinywebserver.translator.scanner.jsp.JspTokenType;
 import org.tinywebserver.util.TinyWebServerUtility;
 
 import java.io.*;

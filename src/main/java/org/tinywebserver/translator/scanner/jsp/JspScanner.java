@@ -1,9 +1,8 @@
-package org.tinywebserver.scanner.jsp;
+package org.tinywebserver.translator.scanner.jsp;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
-import org.tinywebserver.scanner.Scanner;
-import org.tinywebserver.scanner.Source;
-import org.tinywebserver.scanner.Token;
+import org.tinywebserver.translator.scanner.Scanner;
+import org.tinywebserver.translator.scanner.Source;
+import org.tinywebserver.translator.scanner.Token;
 
 import java.io.IOException;
 import java.util.ArrayList;

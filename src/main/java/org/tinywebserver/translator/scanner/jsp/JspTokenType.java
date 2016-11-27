@@ -1,6 +1,6 @@
-package org.tinywebserver.scanner.jsp;
+package org.tinywebserver.translator.scanner.jsp;
 
-import org.tinywebserver.scanner.TokenType;
+import org.tinywebserver.translator.scanner.TokenType;
 
 
 public enum JspTokenType implements TokenType {
