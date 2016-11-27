@@ -1,5 +1,7 @@
 # tinyservlet: simplest java servlet like system written in plain Java with support for cookie, sessoin, session timeout support and jsp scriptlet
 
+System requirements: java 8 and maven 3.3.1+
+
 run the following command from your command prompt:
 
 mvn clean && mvn package && mvn exec:java@jspTranslatorRunner && mvn exec:java@tinyServerRunner
