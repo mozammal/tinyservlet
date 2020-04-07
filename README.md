@@ -21,10 +21,10 @@
 #### clicking the login url. you need to enter a username and password to long in to the application and see the greeting page. you can use any login credentials you want.
 #### TinyServer is bundled with a sample jsp page in the jsp folder. you can create your own jsp pages. Jsp pages are translated to servlet at compile time.
 
-####Users can register by creating a new account using a name and password
-####A garbage collector for session is included which runs in every t seconds and can be confiured using application.properties.
+#### Users can register by creating a new account using a name and password
+#### A garbage collector for session is included which runs in every t seconds and can be confiured using application.properties.
 
-####TODO:
+#### TODO:
 
-####jsp template language support.
-####code generation at runtime
+#### jsp template language support.
+#### code generation at runtime
