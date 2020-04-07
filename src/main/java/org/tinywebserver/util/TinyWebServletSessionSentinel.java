@@ -9,40 +9,41 @@ import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 public class TinyWebServletSessionSentinel extends Thread {
 
-    private final static Logger log = Logger.getLogger(TinyWebServletSessionSentinel.class);
+  private static final Logger log = Logger.getLogger(TinyWebServletSessionSentinel.class);
 
-    public static final String TINYWEBSERVER_SESSION_TIMEOUT = "tinywebserver.session.timeout";
+  public static final String TINYWEBSERVER_SESSION_TIMEOUT = "tinywebserver.session.timeout";
 
-    public void run() {
+  public void run() {
 
-        for (; ; ) {
-            try {
-                Thread.sleep(180000L);
-            } catch (InterruptedException ex) {
-            }
-            log.info("garbage collector for session is running....");
-            long currentTime = System.currentTimeMillis();
-            String sessionTimeoutString = null;
-            try {
-                sessionTimeoutString = TinyServletConfig.getTinyServletConfigInstance().getProperty(TINYWEBSERVER_SESSION_TIMEOUT);
-            } catch (IOException e) {
+    while (true) {
+      try {
+        Thread.sleep(180000L);
+      } catch (InterruptedException ex) {
+      }
+      log.info("garbage collector is running....");
+      long currentTime = System.currentTimeMillis();
+      String sessionTimeoutString = null;
+      try {
+        sessionTimeoutString =
+            TinyServletConfig.getTinyServletConfigInstance()
+                .getProperty(TINYWEBSERVER_SESSION_TIMEOUT);
+      } catch (IOException e) {
+        log.debug(e.getCause());
+      }
+      int sessionTimeOut = Integer.parseInt(sessionTimeoutString);
 
-            }
-            int sessionTimeOut = Integer.parseInt(sessionTimeoutString);
-
-            ConcurrentHashMap<String, TinyHttpSession> sessionManager = HttpTinyServletRequest.getSessionManager();
-            for (Map.Entry<String, TinyHttpSession> sessionEntity : sessionManager.entrySet()) {
-                String sessionKey = sessionEntity.getKey();
-                TinyHttpSession sessionValue = sessionEntity.getValue();
-                if (currentTime - sessionValue.getLastAccessed() > sessionTimeOut) {
-                    sessionManager.remove(sessionKey);
-                    log.info("session deleted for key: " + sessionKey);
-                }
-            }
+      ConcurrentHashMap<String, TinyHttpSession> sessionManager =
+          HttpTinyServletRequest.getSessionManager();
+      for (Map.Entry<String, TinyHttpSession> sessionEntity : sessionManager.entrySet()) {
+        String sessionKey = sessionEntity.getKey();
+        TinyHttpSession sessionValue = sessionEntity.getValue();
+        if (currentTime - sessionValue.getLastAccessed() > sessionTimeOut) {
+          sessionManager.remove(sessionKey);
+          log.info("session deleted for key: " + sessionKey);
         }
+      }
     }
-
+  }
 }

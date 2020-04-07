@@ -3,60 +3,58 @@ package org.tinywebserver.translator.scanner;
 import java.io.IOException;
 import java.util.List;
 
-
 public abstract class Scanner {
 
-    private Token currentToken;
+  private Token currentToken;
 
-    private Source source;
+  private Source source;
 
-    public Scanner(Source source) {
-        this.source = source;
-    }
+  public Scanner(Source source) {
+    this.source = source;
+  }
 
-    public Token getCurrentToken() {
-        return currentToken;
-    }
+  public Token getCurrentToken() {
+    return currentToken;
+  }
 
-    public List<Token> getTokens() throws IOException {
-        return fetchToken();
-    }
+  public List<Token> getTokens() throws IOException {
+    return fetchToken();
+  }
 
-    public abstract List<Token> fetchToken() throws IOException;
+  public abstract List<Token> fetchToken() throws IOException;
 
-    public char currentCharacter() throws IOException {
+  public char currentCharacter() throws IOException {
 
-        return source.currentCharacter();
-    }
+    return source.currentCharacter();
+  }
 
-    public char peekNextCharacter() throws IOException {
+  public char peekNextCharacter() throws IOException {
 
-        return source.peekNextCharacter();
-    }
+    return source.peekNextCharacter();
+  }
 
-    public char nextCharcter() throws IOException {
+  public char nextCharcter() throws IOException {
 
-        return source.nextCharacter();
-    }
+    return source.nextCharacter();
+  }
 
-    public char peekKthCharacter(int k) throws IOException {
+  public char peekKthCharacter(int k) throws IOException {
 
-        return source.peekKthCharacter(k);
-    }
+    return source.peekKthCharacter(k);
+  }
 
-    public String getCurLine() {
+  public String getCurLine() {
 
-        return source.getCurLine();
-    }
+    return source.getCurLine();
+  }
 
-    public boolean hasNextCharacter() {
+  public boolean hasNextCharacter() {
 
-        return source.hasNextCharacter();
-    }
+    return source.hasNextCharacter();
+  }
 
-    public void close() {
+  public void close() {
 
-        source.close();
-    }
-
+    source.close();
+  }
 }

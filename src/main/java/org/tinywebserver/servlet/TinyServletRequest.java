@@ -8,35 +8,35 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.ConcurrentHashMap;
 
-
 public interface TinyServletRequest {
-    ConcurrentHashMap<String, TinyHttpSession> sessionManager = new ConcurrentHashMap<String, TinyHttpSession>();
+  ConcurrentHashMap<String, TinyHttpSession> sessionManager =
+      new ConcurrentHashMap<String, TinyHttpSession>();
 
-    public String getContentType();
+  public String getContentType();
 
-    public int getContentLength();
+  public int getContentLength();
 
-    Map<String, String> getCookies() throws IOException;
+  Map<String, String> getCookies() throws IOException;
 
-    TinyHttpSession getSession() throws IOException;
+  TinyHttpSession getSession() throws IOException;
 
-    Map<String, String> getHeaders();
+  Map<String, String> getHeaders();
 
-    String getMethod();
+  String getMethod();
 
-    String getPath();
+  String getPath();
 
-    String getQueryString();
+  String getQueryString();
 
-    float getVersion();
+  float getVersion();
 
-    String getHeader(String name);
+  String getHeader(String name);
 
-    Set<String> getHeaderNames();
+  Set<String> getHeaderNames();
 
-    HashMap<String, String> getResponseCookies();
+  HashMap<String, String> getResponseCookies();
 
-    HashMap<String, String> getParameters();
+  HashMap<String, String> getParameters();
 
-    Map<String, String> getRequestCookies();
+  Map<String, String> getRequestCookies();
 }

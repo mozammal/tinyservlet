@@ -8,173 +8,161 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-
 public class JspScanner extends Scanner {
 
-    public static final char PERCENT = '%';
-    public static final char GREATER_THAN = '>';
-    public static final char NEW_LINE = '\n';
-    public static final char LESS_THAN = '<';
-    public static final char EQUAL = '=';
-    public static final char EXCLAMATION = '!';
-    public static final char AT = '@';
-    public static final String IMPORT = "import";
-    public static final char QUOTE = '"';
-    public static final int LOOK_UP_AHEAD = 2;
+  public static final char PERCENT = '%';
+  public static final char GREATER_THAN = '>';
+  public static final char NEW_LINE = '\n';
+  public static final char LESS_THAN = '<';
+  public static final char EQUAL = '=';
+  public static final char EXCLAMATION = '!';
+  public static final char AT = '@';
+  public static final String IMPORT = "import";
+  public static final char QUOTE = '"';
+  public static final int LOOK_UP_AHEAD = 2;
 
-    public JspScanner(Source source) {
-        super(source);
+  public JspScanner(Source source) {
+    super(source);
+  }
+
+  public List<Token> fetchToken() throws IOException {
+
+    skipWhiteSpace();
+    List<Token> tokenList = new ArrayList<Token>();
+    while (hasNextCharacter()) {
+      Token token = null;
+      char curCharacter = currentCharacter();
+      char nextCharacter = curCharacter;
+      char charAfterNext = peekKthCharacter(LOOK_UP_AHEAD);
+      if (curCharacter == LESS_THAN && hasNextCharacter()) {
+        nextCharacter = peekNextCharacter();
+
+        if (nextCharacter == PERCENT && charAfterNext == EQUAL) token = JspExpressionToken();
+        else if (nextCharacter == PERCENT && charAfterNext == EXCLAMATION)
+          token = JspDeclarationToken();
+        else if (nextCharacter == PERCENT && charAfterNext == AT) token = JspImportToken();
+        else if (nextCharacter == PERCENT) token = JspScriptletToken();
+        else token = JspHtmlToken();
+      } else token = JspHtmlToken();
+      if (token != null) tokenList.add(token);
     }
+    close();
+    return tokenList;
+  }
 
-    public List<Token> fetchToken() throws IOException {
+  private Token JspImportToken() throws IOException {
 
-        skipWhiteSpace();
-        List<Token> tokenList = new ArrayList<Token>();
-        while (hasNextCharacter()) {
-            Token token = null;
-            char curCharacter = currentCharacter();
-            char nextCharacter = curCharacter;
-            char charAfterNext = peekKthCharacter(LOOK_UP_AHEAD);
-            if (curCharacter == LESS_THAN && hasNextCharacter()) {
-                nextCharacter = peekNextCharacter();
+    StringBuffer sb = new StringBuffer();
+    nextCharcter();
+    nextCharcter();
+    char nexCharacter = nextCharcter();
+    Token token = null;
+    while (!(nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN)
+        && hasNextCharacter()) {
 
-                if (nextCharacter == PERCENT && charAfterNext == EQUAL)
-                    token = JspExpressionToken();
-                else if (nextCharacter == PERCENT && charAfterNext == EXCLAMATION)
-                    token = JspDeclarationToken();
-                else if (nextCharacter == PERCENT && charAfterNext == AT)
-                    token = JspImportToken();
-                else if (nextCharacter == PERCENT)
-                    token = JspScriptletToken();
-                else
-                    token = JspHtmlToken();
-            } else
-                token = JspHtmlToken();
-            if (token != null)
-                tokenList.add(token);
-        }
-        close();
-        return tokenList;
+      String keyWord = "";
+      while (Character.isLowerCase(nexCharacter) && hasNextCharacter()) {
+        keyWord += nexCharacter;
+        nexCharacter = nextCharcter();
+      }
+      if (keyWord.equals(IMPORT)) {
+        nexCharacter = consumeEqualSymbol(nexCharacter);
+        token = consumeImportToken(nexCharacter);
+      }
+      nexCharacter = nextCharcter();
     }
+    consumeJspTag(nexCharacter);
+    return token;
+  }
 
-    private Token JspImportToken() throws IOException {
+  private char consumeEqualSymbol(char nexCharacter) throws IOException {
 
-        StringBuffer sb = new StringBuffer();
-        nextCharcter();
-        nextCharcter();
-        char nexCharacter = nextCharcter();
-        Token token = null;
-        while (!(nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN) && hasNextCharacter()) {
+    while (nexCharacter != EQUAL && hasNextCharacter()) nexCharacter = nextCharcter();
+    if (hasNextCharacter() && nexCharacter == EQUAL) nextCharcter();
+    return currentCharacter();
+  }
 
-            String keyWord = "";
-            while (Character.isLowerCase(nexCharacter) && hasNextCharacter()) {
-                keyWord += nexCharacter;
-                nexCharacter = nextCharcter();
-            }
-            if (keyWord.equals(IMPORT)) {
-                nexCharacter = consumeEqualSymbol(nexCharacter);
-                token = consumeImportToken(nexCharacter);
-            }
-            nexCharacter = nextCharcter();
-        }
-        consumeJspTag(nexCharacter);
-        return token;
+  private Token consumeImportToken(char nexCharacter) throws IOException {
+
+    StringBuffer sb = new StringBuffer();
+    while (nexCharacter != QUOTE && hasNextCharacter()) nexCharacter = nextCharcter();
+
+    if (hasNextCharacter()) nexCharacter = nextCharcter();
+
+    while (nexCharacter != QUOTE && hasNextCharacter()) {
+
+      if (nexCharacter != NEW_LINE) sb.append(nexCharacter);
+      nexCharacter = nextCharcter();
     }
+    return new Token(sb.toString(), JspTokenType.IMPORT);
+  }
 
-    private char consumeEqualSymbol(char nexCharacter) throws IOException {
+  private Token JspHtmlToken() throws IOException {
 
-        while (nexCharacter != EQUAL && hasNextCharacter())
-            nexCharacter = nextCharcter();
-        if (hasNextCharacter() && nexCharacter == EQUAL)
-            nextCharcter();
-        return currentCharacter();
+    StringBuffer sb = new StringBuffer();
+    char nexCharacter = currentCharacter();
+    while (!(nexCharacter == LESS_THAN && peekNextCharacter() == PERCENT) && hasNextCharacter()) {
+      if (nexCharacter != NEW_LINE) sb.append(nexCharacter);
+      nexCharacter = nextCharcter();
     }
+    return new Token(sb.toString(), JspTokenType.HTML);
+  }
 
-    private Token consumeImportToken(char nexCharacter) throws IOException {
+  private Token JspDeclarationToken() throws IOException {
 
-        StringBuffer sb = new StringBuffer();
-        while (nexCharacter != QUOTE && hasNextCharacter())
-            nexCharacter = nextCharcter();
+    StringBuffer sb = new StringBuffer();
+    nextCharcter();
+    nextCharcter();
+    char nexCharacter = nextCharcter();
+    nexCharacter = fetchToken(sb, nexCharacter);
+    consumeJspTag(nexCharacter);
+    return new Token(sb.toString(), JspTokenType.DECLARATION);
+  }
 
-        if (hasNextCharacter())
-            nexCharacter = nextCharcter();
+  private char fetchToken(StringBuffer sb, char nexCharacter) throws IOException {
 
-        while (nexCharacter != QUOTE && hasNextCharacter()) {
-
-            if (nexCharacter != NEW_LINE)
-                sb.append(nexCharacter);
-            nexCharacter = nextCharcter();
-        }
-        return new Token(sb.toString(), JspTokenType.IMPORT);
+    while (!(nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN)
+        && hasNextCharacter()) {
+      if (nexCharacter != NEW_LINE) sb.append(nexCharacter);
+      nexCharacter = nextCharcter();
     }
+    return nexCharacter;
+  }
 
-    private Token JspHtmlToken() throws IOException {
+  private Token JspExpressionToken() throws IOException {
 
-        StringBuffer sb = new StringBuffer();
-        char nexCharacter = currentCharacter();
-        while (!(nexCharacter == LESS_THAN && peekNextCharacter() == PERCENT) && hasNextCharacter()) {
-            if (nexCharacter != NEW_LINE)
-                sb.append(nexCharacter);
-            nexCharacter = nextCharcter();
-        }
-        return new Token(sb.toString(), JspTokenType.HTML);
+    StringBuffer sb = new StringBuffer();
+    nextCharcter();
+    nextCharcter();
+    char nexCharacter = nextCharcter();
+    nexCharacter = fetchToken(sb, nexCharacter);
+    consumeJspTag(nexCharacter);
+    return new Token(sb.toString(), JspTokenType.EXPRESSION);
+  }
+
+  private Token JspScriptletToken() throws IOException {
+
+    StringBuffer sb = new StringBuffer();
+    nextCharcter();
+    char nexCharacter = nextCharcter();
+    nexCharacter = fetchToken(sb, nexCharacter);
+    consumeJspTag(nexCharacter);
+    return new Token(sb.toString(), JspTokenType.SCRIPTLET);
+  }
+
+  private void consumeJspTag(char nexCharacter) throws IOException {
+
+    if (nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN) {
+      nextCharcter();
+      nextCharcter();
     }
+  }
 
-    private Token JspDeclarationToken() throws IOException {
+  private void skipWhiteSpace() throws IOException {
 
-        StringBuffer sb = new StringBuffer();
-        nextCharcter();
-        nextCharcter();
-        char nexCharacter = nextCharcter();
-        nexCharacter = fetchToken(sb, nexCharacter);
-        consumeJspTag(nexCharacter);
-        return new Token(sb.toString(), JspTokenType.DECLARATION);
+    char curCharacter = currentCharacter();
+    while (Character.isWhitespace(curCharacter)) {
+      curCharacter = nextCharcter();
     }
-
-    private char fetchToken(StringBuffer sb, char nexCharacter) throws IOException {
-
-        while (!(nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN) && hasNextCharacter()) {
-            if (nexCharacter != NEW_LINE)
-                sb.append(nexCharacter);
-            nexCharacter = nextCharcter();
-        }
-        return nexCharacter;
-    }
-
-    private Token JspExpressionToken() throws IOException {
-
-        StringBuffer sb = new StringBuffer();
-        nextCharcter();
-        nextCharcter();
-        char nexCharacter = nextCharcter();
-        nexCharacter = fetchToken(sb, nexCharacter);
-        consumeJspTag(nexCharacter);
-        return new Token(sb.toString(), JspTokenType.EXPRESSION);
-    }
-
-    private Token JspScriptletToken() throws IOException {
-
-        StringBuffer sb = new StringBuffer();
-        nextCharcter();
-        char nexCharacter = nextCharcter();
-        nexCharacter = fetchToken(sb, nexCharacter);
-        consumeJspTag(nexCharacter);
-        return new Token(sb.toString(), JspTokenType.SCRIPTLET);
-    }
-
-    private void consumeJspTag(char nexCharacter) throws IOException {
-
-        if (nexCharacter == PERCENT && peekNextCharacter() == GREATER_THAN) {
-            nextCharcter();
-            nextCharcter();
-        }
-    }
-
-    private void skipWhiteSpace() throws IOException {
-
-        char curCharacter = currentCharacter();
-        while (Character.isWhitespace(curCharacter)) {
-            curCharacter = nextCharcter();
-        }
-    }
+  }
 }

@@ -1,25 +1,24 @@
 package org.tinywebserver.translator.scanner;
 
-
 public class Token {
 
-    private String value;
+  private String value;
 
-    private TokenType tokenType;
+  private TokenType tokenType;
 
-    public Token(String value, TokenType tokenType) {
+  public Token(String value, TokenType tokenType) {
 
-        this.value = value;
-        this.tokenType = tokenType;
-    }
+    this.value = value;
+    this.tokenType = tokenType;
+  }
 
-    public String getValue() {
+  public String getValue() {
 
-        return value;
-    }
+    return value;
+  }
 
-    public TokenType getTokenType() {
+  public TokenType getTokenType() {
 
-        return tokenType;
-    }
+    return tokenType;
+  }
 }

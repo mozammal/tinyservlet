@@ -9,17 +9,18 @@
     </style>
 </head>
 </head>
-<BODY><%@ page import="java.util.*, java.io.*, java.net.*" %>
+<BODY>
+<%@ page import="java.util.*, java.io.*, java.net.*" %>
 
 <img src="../../img_avatar.png">
-<%! int data=50; %><%
+<%! int data = 50; %><%
     Date date = new java.util.Date();
 
     String[][] name = {{"mozammal", "Hossain"}, {"Karim", "Rahim"}};
 %>
 <%!
-    public int sqr(int n){
-        return n*n;
+    public int sqr(int n) {
+        return n * n;
     }
 %>
 
@@ -33,7 +34,7 @@
         </td>
     </tr>
     <% } %>
-    <%= "Square of 3 is:"+sqr(3) %>
+    <%= "Square of 3 is:" + sqr(3) %>
 </table>
 <P>The time is now <%= date %>
 </BODY>
